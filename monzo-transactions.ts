@@ -23,7 +23,7 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
 
         console.log("Successfully put transaction into DB");
         console.log(JSON.stringify(result));
-        
+
     } catch (error) {
         console.error("Failed to put item")
         console.error(error);
@@ -32,14 +32,18 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
 
 export async function getTransactions() {
     console.log("Reading transactions from DB");
-    
+
     const dbClient = new DynamoDB({ region: "eu-west-2" });
 
     try {
-        const result = await dbClient.query({TableName: "monzo-transactions"})
+        const result = await dbClient.query({
+            TableName: "monzo-transactions",
+            ExpressionAttributeValues: { ":v1": { S: "Jack O'Hara" } },
+            KeyConditionExpression: "acount_holder_name = :v1"
+        })
 
         console.log("Successfully queried items");
-        
+
         return result.Items;
     } catch (error) {
         console.error("Failed to query items")
