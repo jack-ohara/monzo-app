@@ -39,7 +39,8 @@ export async function getTransactions() {
         const result = await dbClient.query({
             TableName: "monzo-transactions",
             ExpressionAttributeValues: { ":v1": { S: "Jack O'Hara" } },
-            KeyConditionExpression: "acount_holder_name = :v1"
+            KeyConditionExpression: "acount_holder_name = :v1",
+            ProjectionExpression: "transaction_date"
         })
 
         console.log("Successfully queried items");
