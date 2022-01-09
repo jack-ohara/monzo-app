@@ -1,4 +1,5 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { DynamoDB } from '@aws-sdk/client-dynamodb'
 
 export async function handler(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
     console.log(event)
@@ -10,6 +11,24 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         return {
             statusCode: 200,
             body: JSON.stringify("Thanks for the tasty data")
+        }
+    } else if (event.requestContext.http.method === 'GET') {
+        const dbClient = new DynamoDB({ region: "eu-west-2" })
+
+        try {
+            const tables = await dbClient.listTables({});
+
+            return {
+                statusCode: 200,
+                body: JSON.stringify(tables.TableNames)
+            }
+        } catch (err) {
+            console.error("Failed to read from the DB!")
+            console.error(err);
+
+            return {
+                statusCode: 400
+            }
         }
     }
 
