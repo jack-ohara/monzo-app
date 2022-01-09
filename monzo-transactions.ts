@@ -15,7 +15,7 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
                 transaction_recipient: {
                     M: {
                         name: { S: monzoTransaction.data.merchant?.name ?? monzoTransaction.data.counterparty.preferred_name },
-                        logo: monzoTransaction.data.merchant?.logo ? { S: monzoTransaction.data.merchant?.logo } : { NULL: Boolean(monzoTransaction.data.merchant?.logo) }
+                        logo: monzoTransaction.data.merchant?.logo ? { S: monzoTransaction.data.merchant?.logo } : { NULL: true }
                     }
                 }
             }
