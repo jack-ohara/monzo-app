@@ -1,0 +1,16 @@
+{
+  "name": "monzo_webhook_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.89",
+    "@types/node": "^17.0.8",
+    "@vercel/ncc": "^0.33.1"
+  }
+}
