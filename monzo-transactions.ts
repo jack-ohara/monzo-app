@@ -1,4 +1,4 @@
-import { StoredTransaction, TransactionCreated } from "./types";
+import { TransactionCreated } from "./types";
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 
 export async function storeTransaction(monzoTransaction: TransactionCreated): Promise<void> {
@@ -27,5 +27,24 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
     } catch (error) {
         console.error("Failed to put item")
         console.error(error);
+    }
+}
+
+export async function getTransactions() {
+    console.log("Reading transactions from DB");
+    
+    const dbClient = new DynamoDB({ region: "eu-west-2" });
+
+    try {
+        const result = await dbClient.query({TableName: "monzo-transactions"})
+
+        console.log("Successfully queried items");
+        
+        return result.Items;
+    } catch (error) {
+        console.error("Failed to query items")
+        console.error(error);
+
+        throw error;
     }
 }
