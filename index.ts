@@ -16,11 +16,11 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
         const dbClient = new DynamoDB({ region: "eu-west-2" })
 
         try {
-            const tables = await dbClient.listTables({});
+            const tableInfo = await dbClient.describeTable({ TableName: "monzo-transactions" });
 
             return {
                 statusCode: 200,
-                body: JSON.stringify(tables.TableNames)
+                body: JSON.stringify(tableInfo, null, 2)
             }
         } catch (err) {
             console.error("Failed to read from the DB!")
