@@ -45,10 +45,13 @@ type Counterparty = {
 };
 
 export type StoredTransaction = {
-    account_holder_name: AttributeValue;
-    transaction_date: AttributeValue;
-    transaction_recipient: AttributeValue; // {name: string; logo: string}
-    amount: AttributeValue;
-    currency: AttributeValue;
-    description: AttributeValue;
+    account_holder_name: string;
+    transaction_date: string;
+    transaction_recipient: {
+        name: string;
+        logo: string | undefined;
+    };
+    amount: number;
+    currency: string;
+    description: string;
 }
