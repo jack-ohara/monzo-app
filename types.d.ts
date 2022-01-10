@@ -50,6 +50,7 @@ export type StoredTransaction = {
     transaction_recipient: {
         name: string;
         logo: string | undefined;
+        is_merchant: boolean;
     };
     amount: number;
     currency: string;
