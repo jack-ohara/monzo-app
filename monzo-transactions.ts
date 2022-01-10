@@ -18,7 +18,8 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
                         logo: monzoTransaction.data.merchant?.logo ? { S: monzoTransaction.data.merchant?.logo } : { NULL: true },
                         is_merchant: { BOOL: monzoTransaction.data.merchant ? true : false }
                     }
-                }
+                },
+                notes: { S: monzoTransaction.data.notes }
             }
         });
 
@@ -56,7 +57,8 @@ export async function getTransactions(): Promise<StoredTransaction[]> {
                     name: i.transaction_recipient.M.name.S,
                     logo: i.transaction_recipient.M.logo.N ? undefined : i.transaction_recipient.M.logo.S,
                     is_merchant: i.transaction_recipient.M.is_merchant.BOOL
-                }
+                },
+                notes: i.notes.S
             }
         });
     } catch (error) {

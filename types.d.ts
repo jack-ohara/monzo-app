@@ -13,6 +13,7 @@ export type TransactionCreated = {
         settled: string;
         merchant: Merchant | null;
         counterparty: Counterparty | null;
+        notes: string | null;
     }
 };
 
@@ -55,4 +56,5 @@ export type StoredTransaction = {
     amount: number;
     currency: string;
     description: string;
+    notes: string | undefined;
 }
