@@ -30,6 +30,7 @@ export async function handler(event: APIGatewayProxyEventV2): Promise<APIGateway
     // console.log(`${event.requestContext.http.method} request received`)
     // console.log('Doing nothing and exiting...')
     return {
-        statusCode: 200
+        statusCode: 200,
+        body: JSON.stringify({hello: "world"})
     };
 }
