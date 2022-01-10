@@ -58,7 +58,7 @@ export async function getTransactions(): Promise<StoredTransaction[]> {
                     logo: i.transaction_recipient.M.logo.N ? undefined : i.transaction_recipient.M.logo.S,
                     is_merchant: i.transaction_recipient.M.is_merchant.BOOL
                 },
-                notes: i.notes.S
+                notes: i.notes?.S
             }
         });
     } catch (error) {
