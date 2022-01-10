@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
-// import { getTransactions, storeTransaction } from "./monzo-transactions";
+import { getTransactions, storeTransaction } from "./monzo-transactions";
 
 export async function handler(event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> {
     console.log("Successfully entered the function!")
