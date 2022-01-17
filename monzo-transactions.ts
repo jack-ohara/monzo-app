@@ -14,12 +14,12 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
                 transaction_date: { S: monzoTransaction.data.created },
                 transaction_recipient: {
                     M: {
-                        name: { S: monzoTransaction.data.merchant?.name ?? monzoTransaction.data.counterparty.preferred_name },
+                        name: { S: monzoTransaction.data.counterparty?.preferred_name ?? monzoTransaction.data.merchant?.name },
                         logo: monzoTransaction.data.merchant?.logo ? { S: monzoTransaction.data.merchant?.logo } : { NULL: true },
                         is_merchant: { BOOL: monzoTransaction.data.merchant ? true : false }
                     }
                 },
-                notes: { S: monzoTransaction.data.notes }
+                notes: { S: monzoTransaction.data.notes ?? (monzoTransaction.data.counterparty && monzoTransaction.data.merchant ? `For ${monzoTransaction.data.merchant.name}` : '') }
             }
         });
 
