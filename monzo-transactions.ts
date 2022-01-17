@@ -19,7 +19,7 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
                         is_merchant: { BOOL: monzoTransaction.data.merchant ? true : false }
                     }
                 },
-                notes: { S: monzoTransaction.data.notes ?? (monzoTransaction.data.counterparty && monzoTransaction.data.merchant ? `For ${monzoTransaction.data.merchant.name}` : '') }
+                notes: { S: monzoTransaction.data.notes ? monzoTransaction.data.notes : (monzoTransaction.data.counterparty && monzoTransaction.data.merchant ? `For ${monzoTransaction.data.merchant.name}` : '') }
             }
         });
 
