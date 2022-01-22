@@ -19,7 +19,8 @@ export async function storeTransaction(monzoTransaction: TransactionCreated): Pr
                         is_merchant: { BOOL: monzoTransaction.data.merchant ? true : false }
                     }
                 },
-                notes: { S: monzoTransaction.data.notes ? monzoTransaction.data.notes : (monzoTransaction.data.counterparty.account_id && monzoTransaction.data.merchant ? `For ${monzoTransaction.data.merchant.name}` : '') }
+                notes: { S: monzoTransaction.data.notes ? monzoTransaction.data.notes : (monzoTransaction.data.counterparty.account_id && monzoTransaction.data.merchant ? `For ${monzoTransaction.data.merchant.name}` : '') },
+                expiration_time: { N: getExpirationTime(monzoTransaction.data.created).toString() }
             }
         });
 
@@ -67,4 +68,11 @@ export async function getTransactions(): Promise<StoredTransaction[]> {
 
         throw error;
     }
+}
+
+function getExpirationTime(transactionCreatedDate: string): number {
+    const expirationDate = new Date(transactionCreatedDate);
+    expirationDate.setDate(expirationDate.getDate() + 30);
+
+    return Math.round(expirationDate.getTime() / 1000);
 }
